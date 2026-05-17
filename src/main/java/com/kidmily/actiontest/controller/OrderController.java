@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/orders")
 public class OrderController {
 
-    @Operation(summary = "주문 내역 조회", description = "전체 주문 내역을 반환합니다.")
+    @Operation(summary = "주문 내역 조회123", description = "전체 주문 내역을 반환합니다.")
     @GetMapping
     public List<OrderDto> getOrders() {
         return List.of(new OrderDto(999L, 1L, 100L, 2));
