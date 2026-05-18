@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-
     @Operation(summary = "사용자 목록 조회", description = "전체 사용자 목록을 반환합니다.")
     @GetMapping
     public List<UserDto> getUsers() {
@@ -23,5 +22,12 @@ public class UserController {
     @PostMapping
     public UserDto createUser(@RequestBody UserDto userDto) {
         return userDto;
+    }
+
+    @Operation(summary = "사용자 상세 조회", description = "사용자를 조회합니다.")
+    @GetMapping("/{userId}")
+    public UserDto viewUser(@RequestParam String userId) {
+        return new UserDto(1L, "홍길동", "user@example.com");
+
     }
 }
