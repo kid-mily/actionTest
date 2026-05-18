@@ -7,9 +7,12 @@ public record ErrorResponse(
         @Schema(description = "HTTP 상태 코드", example = "404")
         int status,
 
-        @Schema(description = "에러 분류 코드", example = "USER_001")
+        @Schema(description = "에러 분류 코드", example = "USER_NOT_FOUND")
         String errorCode,
 
         @Schema(description = "에러 상세 메시지", example = "해당 사용자를 찾을 수 없습니다.")
-        String message
+        String message,
+
+        @Schema(description = "에러 추적 ID (로그 확인용)", example = "a1b2c3d4-e5f6-7890")
+        String traceId
 ) {}

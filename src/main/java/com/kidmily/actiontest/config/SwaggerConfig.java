@@ -31,19 +31,18 @@ public class SwaggerConfig {
                 Class<? extends BaseErrorCode> domainClass = apiExample.domain();
 
                 for (String codeName : apiExample.value()) {
-                    // 🌟 컴파일 에러 해결 포인트: 제네릭 캐스팅 대신 getEnumConstants() 사용
                     BaseErrorCode errorCode = getErrorCodeInstance(domainClass, codeName);
 
-                    if (errorCode == null) {
-                        continue; // 일치하는 Enum이 없으면 건너뜀
-                    }
+                    if (errorCode == null) continue;
 
                     String statusCode = String.valueOf(errorCode.getStatus().value());
 
+                    // 🌟 스웨거 예시용 ErrorResponse 생성 시 가상의 traceId를 주입합니다.
                     ErrorResponse errorResponseExample = new ErrorResponse(
                             errorCode.getStatus().value(),
                             errorCode.getCode(),
-                            errorCode.getMessage()
+                            errorCode.getMessage(),
+                            "example-trace-id-1234" // 고정된 예시값이나 UUID를 넣습니다.
                     );
 
                     Example example = new Example();
@@ -69,12 +68,10 @@ public class SwaggerConfig {
                     responses.addApiResponse(statusCode, apiResponse);
                 }
             }
-
             return operation;
         };
     }
 
-    // 🌟 안전하게 Enum 인스턴스를 추출하는 헬퍼 메서드 추가
     private BaseErrorCode getErrorCodeInstance(Class<? extends BaseErrorCode> domainClass, String codeName) {
         if (domainClass.isEnum()) {
             for (BaseErrorCode enumConstant : domainClass.getEnumConstants()) {
