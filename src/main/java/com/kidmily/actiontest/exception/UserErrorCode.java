@@ -1,9 +1,12 @@
 package com.kidmily.actiontest.exception;
 
 import org.springframework.http.HttpStatus;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-public enum ErrorCode {
-    SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "SERVER_001", "서버 내부에서 오류가 발생했습니다."),
+@Getter
+@RequiredArgsConstructor
+public enum UserErrorCode implements BaseErrorCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER_001", "해당 사용자를 찾을 수 없습니다."),
     INVALID_USER_INPUT(HttpStatus.BAD_REQUEST, "USER_002", "잘못된 사용자 입력입니다."),
     DUPLICATE_EMAIL(HttpStatus.CONFLICT, "USER_003", "이미 사용 중인 이메일입니다.");
@@ -11,14 +14,4 @@ public enum ErrorCode {
     private final HttpStatus status;
     private final String code;
     private final String message;
-
-    ErrorCode(HttpStatus status, String code, String message) {
-        this.status = status;
-        this.code = code;
-        this.message = message;
-    }
-
-    public HttpStatus getStatus() { return status; }
-    public String getCode() { return code; }
-    public String getMessage() { return message; }
 }

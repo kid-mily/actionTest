@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Service 단에서 던진 CustomException을 여기서 잡습니다!
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ErrorResponse> handleCustomException(CustomException e) {
         ErrorResponse response = new ErrorResponse(
@@ -20,6 +19,6 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(e.getErrorCode().getStatus())
-                .body(response); // 이 데이터가 그대로 Swagger 명세와 일치하게 됩니다.
+                .body(response);
     }
 }
